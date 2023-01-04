@@ -35,6 +35,10 @@ Instructions:
 
     Your code goes here!
      */
+
+    return fetch(url, {
+      method: 'get'
+    })
   }
 
   /**
@@ -48,6 +52,10 @@ Instructions:
 
     Your code goes here!
      */
+    return get(url)
+      .then((response) => {
+        return response.json();
+      })
   }
 
   window.addEventListener('WebComponentsReady', function() {
@@ -58,6 +66,18 @@ Instructions:
 
     Your code goes here too!
      */
-    // getJSON('../data/earth-like-results.json')
+    getJSON('../data/earth-like-results.json')
+    .then((response) => {
+      addSearchHeader(response.query);
+      console.log('response', response);
+      return response.results[0];
+    })
+    .then((url) => {
+      console.log('url', url);
+    })
+    .catch((error) => {
+      addSearchHeader('unknown');
+      console.log('error', error);
+    })
   });
 })(document);
